@@ -1,3 +1,14 @@
+# Audio
+*.mp3
+*.wav
+
+# Idea
+.idea/
+*.iml
+
+# Pi Clock
+*.sqlite
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -8,6 +19,7 @@ __pycache__/
 # Distribution / packaging
 .Python
 env/
+venv/
 build/
 develop-eggs/
 dist/

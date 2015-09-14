@@ -1,0 +1,27 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}Pi Clock{% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Pi Clock</a>
+        </div>
+    </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+    {% block page_content %}{% endblock %}
+
+    {% block footer %}
+    <hr>
+    <div class="container">
+        <footer>
+            <p>&copy; Everett Toews 2015</p>
+        </footer>
+    </div>
+    {% endblock %}
+{% endblock %}
+
