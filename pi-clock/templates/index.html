@@ -17,8 +17,8 @@
                 <tbody>
                 {% for alarm in alarms %}
                     {% set day_of_week = alarm.trigger.fields[4] %}
-                    {% set hour = alarm.trigger.fields[5] %}
-                    {% set minute = alarm.trigger.fields[6] | int() %}
+                    {% set hour = alarm.trigger.fields[5] | string() | int() %}
+                    {% set minute = alarm.trigger.fields[6] | string() | int() %}
                     <tr>
                         <td>{{ alarm.id }}</td>
                         <td>{{ day_of_week }}</td>
