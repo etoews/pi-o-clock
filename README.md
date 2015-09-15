@@ -30,7 +30,7 @@ On a Raspberry Pi:
 ```
 cd pi-clock
 source venv/bin/activate
-sudo venv/bin/python pi-clock/app.py runserver --host 0.0.0.0 --port 80
+sudo venv/bin/python pi-clock/app.py runserver --no-reload --host 0.0.0.0 --port 80
 ```
 
 ## Develop
@@ -43,4 +43,8 @@ Install [FUSE and SSHFS](https://osxfuse.github.io/)
 ssh-keygen -t rsa -b 4096 -N '' -f ~/.ssh/id_rsa.clock
 mkdir -p ~/dev/sshfs/pi-clock
 sshfs -o IdentityFile=~/.ssh/id_rsa.clock pi@pi.clock.ip.addr:pi-clock ~/dev/sshfs/pi-clock/
+
+cd pi-clock
+source venv/bin/activate
+python pi-clock/app.py runserver --debug
 ```

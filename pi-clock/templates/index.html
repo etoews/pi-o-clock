@@ -4,8 +4,30 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4">
-            <h2>Heading</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+            <h2>Alarms</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Day(s)</th>
+                        <th>Time</th>
+                        <th>Next Run</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for alarm in alarms %}
+                    {% set day_of_week = alarm.trigger.fields[4] %}
+                    {% set hour = alarm.trigger.fields[5] %}
+                    {% set minute = alarm.trigger.fields[6] | int() %}
+                    <tr>
+                        <td>{{ alarm.id }}</td>
+                        <td>{{ day_of_week }}</td>
+                        <td>{{ hour }}:{{ '%02d' | format(minute) }}</td>
+                        <td>{{ moment(alarm.next_run_time, True).fromNow(refresh=True) }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
             <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
         </div>
     </div>
