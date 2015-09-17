@@ -10,10 +10,11 @@ On a Raspberry Pi:
 
 ```
 sudo apt-get -y update; sudo apt-get -y upgrade
-sudo apt-get -y install python-dev python-pip
+sudo apt-get -y install python-dev python-pip supervisor
 sudo dpkg-reconfigure tzdata
 git clone git@github.com:everett-toews/pi-clock.git
 cd pi-clock
+sudo cp pi-clock.conf /etc/supervisor/conf.d/
 sudo pip install --upgrade pip
 sudo pip install virtualenv
 # system-site-packages for pygame
@@ -30,7 +31,16 @@ On a Raspberry Pi:
 ```
 cd pi-clock
 source venv/bin/activate
-sudo venv/bin/python pi-clock/app.py runserver --no-reload --host 0.0.0.0 --port 80
+sudo /home/pi/pi-clock/venv/bin/python /home/pi/pi-clock/pi-clock/app.py runserver --no-reload --host 0.0.0.0 --port 80
+```
+
+### Supervisor
+
+```
+service supervisor status
+sudo supervisorctl status pi-clock
+sudo supervisorctl update
+sudo supervisorctl start pi-clock
 ```
 
 ## Develop
@@ -48,3 +58,4 @@ cd pi-clock
 source venv/bin/activate
 python pi-clock/app.py runserver --debug
 ```
+

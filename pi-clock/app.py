@@ -1,4 +1,5 @@
 import logging
+import sys
 
 from flask import Flask, render_template, request
 from flask.ext.bootstrap import Bootstrap
@@ -8,11 +9,12 @@ from flask.ext.moment import Moment
 import sched
 
 logging.basicConfig(
+    stream=sys.stdout,
     level=logging.DEBUG,
     format='%(levelname)s: %(message)s')
 
 logger = logging.getLogger(__name__)
-logger.debug("Welcome to Pi Clock")
+logger.info("Welcome to Pi Clock")
 
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
