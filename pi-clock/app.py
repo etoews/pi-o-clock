@@ -1,12 +1,13 @@
 import logging
 import sys
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template
 from flask.ext.bootstrap import Bootstrap
 from flask.ext.script import Manager
 from flask.ext.moment import Moment
 
 import sched
+from api import api
 
 logging.basicConfig(
     stream=sys.stdout,
@@ -17,17 +18,16 @@ logger = logging.getLogger(__name__)
 logger.info("Welcome to Pi Clock")
 
 app = Flask(__name__)
+app.register_blueprint(api)
+
 bootstrap = Bootstrap(app)
 manager = Manager(app)
 moment = Moment(app)
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
 def index():
-    if request.method == 'POST':
-        pass
-
-    alarms = sched.alarms()
+    alarms = sched.get_alarms()
 
     return render_template('index.html', alarms=alarms)
 

@@ -4,7 +4,6 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4">
-            <h2>Alarms</h2>
             <table class="table">
                 <thead>
                     <tr>
@@ -12,23 +11,24 @@
                         <th>Day(s)</th>
                         <th>Time</th>
                         <th>Next Run</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                 {% for alarm in alarms %}
-                    {% set day_of_week = alarm.trigger.fields[4] %}
-                    {% set hour = alarm.trigger.fields[5] | string() | int() %}
-                    {% set minute = alarm.trigger.fields[6] | string() | int() %}
                     <tr>
                         <td>{{ alarm.id }}</td>
-                        <td>{{ day_of_week }}</td>
-                        <td>{{ hour }}:{{ '%02d' | format(minute) }}</td>
-                        <td>{{ moment(alarm.next_run_time, True).fromNow(refresh=True) }}</td>
+                        <td>{{ alarm.days }}</td>
+                        <td>{{ alarm.hour }}:{{ '%02d' | format(alarm.minute) }}</td>
+                        <td>{{ moment(alarm.next_run, True).fromNow(refresh=True) }}</td>
+                        <td>
+                            <span class="glyphicon glyphicon-ban-circle"></span>
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
-            <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+            <p><a class="btn btn-default" href="#" role="button">Add Alarm</a></p>
         </div>
     </div>
 </div>
