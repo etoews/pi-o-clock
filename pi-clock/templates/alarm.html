@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>ID</td>
+                        <td>{{ alarm.id }}</td>
+                    </tr>
+                    <tr>
+                        <td>Day(s)</td>
+                        <td>{{ alarm.days }}</td>
+                    </tr>
+                    <tr>
+                        <td>Time</td>
+                        <td>{{ alarm.hour }}:{{ '%02d' | format(alarm.minute) }}</td>
+                    </tr>
+                    <tr>
+                        <td>Next Run</td>
+                        <td>{{ moment(alarm.next_run, True).fromNow(refresh=True) }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><a class="btn btn-default" href="#" role="button">Delete</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+
+<script>
+</script>
+{% endblock %}
+

@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 logger.info("Welcome to Pi Clock")
 
 app = Flask(__name__)
-app.register_blueprint(api)
+app.register_blueprint(api, url_prefix='/api')
 
 bootstrap = Bootstrap(app)
 manager = Manager(app)
@@ -26,10 +26,16 @@ moment = Moment(app)
 
 
 @app.route('/')
-def index():
+def get_alarms():
     alarms = sched.get_alarms()
 
-    return render_template('index.html', alarms=alarms)
+    return render_template('alarms.html', alarms=alarms)
+
+@app.route('/alarms/<alarm_id>')
+def get_alarm(alarm_id):
+    alarm = sched.get_alarm(alarm_id)
+
+    return render_template('alarm.html', alarm=alarm)
 
 if __name__ == '__main__':
     manager.run()

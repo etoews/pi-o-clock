@@ -1,7 +1,7 @@
 import pygame
 
 
-def play_song():
+def play_songs():
     clock = pygame.time.Clock()
     pygame.mixer.init()
     pygame.mixer.music.load("audio/Planet-Claire.mp3")
