@@ -31,7 +31,7 @@ On a Raspberry Pi:
 ```
 cd pi-clock
 source venv/bin/activate
-sudo /home/pi/pi-clock/venv/bin/python /home/pi/pi-clock/pi-clock/app.py runserver --no-reload --host 0.0.0.0 --port 80
+sudo /home/pi/pi-clock/venv/bin/python /home/pi/pi-clock/manage.py runserver --no-reload --host 0.0.0.0 --port 80
 ```
 
 ### Supervisor
@@ -56,6 +56,6 @@ sshfs -o IdentityFile=~/.ssh/id_rsa.clock pi@pi.clock.ip.addr:pi-clock ~/dev/ssh
 
 cd pi-clock
 source venv/bin/activate
-python pi-clock/app.py runserver --debug
+python manage.py runserver --debug
 ```
 
