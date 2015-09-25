@@ -21,6 +21,7 @@ sudo pip install virtualenv
 virtualenv --system-site-packages venv
 source venv/bin/activate
 pip install -r requirements.txt
+pip install ipython
 sudo reboot
 ```
 
@@ -61,5 +62,8 @@ sshfs -o IdentityFile=~/.ssh/id_rsa.clock pi@pi.clock.ip.addr:pi-clock ~/dev/ssh
 cd pi-clock
 source venv/bin/activate
 python manage.py runserver --debug
+
+cd ..
+sudo umount pi-clock
 ```
 
