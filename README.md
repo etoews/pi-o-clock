@@ -39,8 +39,12 @@ sudo /home/pi/pi-clock/venv/bin/python /home/pi/pi-clock/manage.py runserver --n
 ```
 service supervisor status
 sudo supervisorctl status pi-clock
-sudo supervisorctl update
+sudo supervisorctl update pi-clock
 sudo supervisorctl start pi-clock
+
+# on pi-clock.conf file changes
+sudo supervisorctl reread
+sudo supervisorctl update
 ```
 
 ## Develop

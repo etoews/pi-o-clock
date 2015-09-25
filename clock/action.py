@@ -5,6 +5,8 @@ import random
 
 import pygame
 
+from clock import bg
+
 logger = logging.getLogger(__name__)
 
 
@@ -27,5 +29,13 @@ def play_songs(num=3):
         pygame.mixer.music.load(song)
         pygame.mixer.music.play()
 
+        logger.debug("Playing %s", song)
+
         while pygame.mixer.music.get_busy():
             clock.tick(30)
+
+def pause():
+    bg.running
+
+def _get_running_job():
+    print(bg.get_jobs(pending=False))

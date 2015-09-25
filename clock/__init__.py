@@ -1,6 +1,8 @@
 import logging
 import sys
 
+from apscheduler.schedulers.background import BackgroundScheduler
+
 from flask import Flask
 from flask.ext.bootstrap import Bootstrap
 from flask.ext.moment import Moment
@@ -9,7 +11,12 @@ logger = logging.getLogger(__name__)
 
 bootstrap = Bootstrap()
 moment = Moment()
+bg = BackgroundScheduler()
 
+
+def _configure_scheduler():
+    bg.add_jobstore('sqlalchemy', url='sqlite:///pi-clock.sqlite')
+    bg.start()
 
 def _configure_logging():
     root_logger = logging.getLogger()
@@ -27,6 +34,7 @@ def _configure_logging():
 
 def create_app():
     _configure_logging()
+
     logger.info("Welcome to Pi Clock")
 
     app = Flask(__name__)
@@ -36,5 +44,7 @@ def create_app():
 
     from views import views as views_bp
     app.register_blueprint(views_bp)
+
+    _configure_scheduler()
 
     return app

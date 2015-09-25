@@ -1,29 +1,30 @@
 from collections import namedtuple
 
-from apscheduler.schedulers.background import BackgroundScheduler
-
+from clock import bg
 import action
 
-bg = BackgroundScheduler()
-bg.add_jobstore('sqlalchemy', url='sqlite:///pi-clock.sqlite')
-bg.start()
-
-bg.remove_all_jobs()
-bg.add_job(action.play_songs, id='play_songs', trigger='cron',
-           day_of_week='mon-fri', hour=6, minute=45)
 
 Alarm = namedtuple('Alarm', 'id days hour minute next_run')
+Alarm.__new__.__defaults__ = (None, None, None, None, None)
+
+
+def add_alarm(alarm):
+    bg.add_job(
+        action.play_songs,
+        id=alarm.id,
+        trigger='cron',
+        day_of_week=alarm.days,
+        hour=alarm.hour,
+        minute=alarm.minute)
+
+def remove_alarm(alarm):
+    return bg.remove_job(alarm.id)
 
 def get_alarms():
-    alarms = []
+    return [_job_to_alarm(job) for job in bg.get_jobs()]
 
-    for job in bg.get_jobs():
-        alarms.append(_job_to_alarm(job))
-
-    return alarms
-
-def get_alarm(id):
-    return _job_to_alarm(bg.get_job(id))
+def get_alarm(alarm):
+    return _job_to_alarm(bg.get_job(alarm.id))
 
 def _job_to_alarm(job):
     return Alarm(
