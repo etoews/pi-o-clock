@@ -24,7 +24,11 @@
                     </tr>
                 </tbody>
             </table>
-            <p><a class="btn btn-default" href="#" role="button">Delete</a></p>
+            <p>
+                <a class="btn btn-default" href="/alarms/{{ alarm.id }}/play" role="button">Play</a>
+                <a class="btn btn-default" href="/alarms/{{ alarm.id }}/edit" role="button">Edit</a>
+                <a class="btn btn-default" href="/alarms/{{ alarm.id }}/delete" role="button">Delete</a>
+            </p>
         </div>
     </div>
 </div>

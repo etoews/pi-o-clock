@@ -17,14 +17,23 @@ def add_alarm(alarm):
         hour=alarm.hour,
         minute=alarm.minute)
 
+
 def remove_alarm(alarm):
     return bg.remove_job(alarm.id)
+
 
 def get_alarms():
     return [_job_to_alarm(job) for job in bg.get_jobs()]
 
+
 def get_alarm(alarm):
     return _job_to_alarm(bg.get_job(alarm.id))
+
+
+def play_alarm(alarm):
+    job = bg.get_job(alarm.id)
+    job.func()
+
 
 def _job_to_alarm(job):
     return Alarm(

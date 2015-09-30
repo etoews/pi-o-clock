@@ -18,6 +18,7 @@ def _configure_scheduler():
     bg.add_jobstore('sqlalchemy', url='sqlite:///pi-clock.sqlite')
     bg.start()
 
+
 def _configure_logging():
     root_logger = logging.getLogger()
     root_logger.setLevel(logging.DEBUG)
@@ -32,19 +33,19 @@ def _configure_logging():
     file_handler.setFormatter(formatter)
     root_logger.addHandler(file_handler)
 
-def create_app():
-    _configure_logging()
 
+def create_app():
+    app = Flask(__name__)
+
+    _configure_logging()
     logger.info("Welcome to Pi Clock")
 
-    app = Flask(__name__)
+    _configure_scheduler()
 
     bootstrap.init_app(app)
     moment.init_app(app)
 
     from views import views as views_bp
     app.register_blueprint(views_bp)
-
-    _configure_scheduler()
 
     return app

@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 def play_songs(num=3):
     songs = []
-    for root, dirnames, filenames in os.walk('audio'):
+    for root, _, filenames in os.walk('audio'):
         for filename in fnmatch.filter(filenames, '*.mp3'):
             songs.append(os.path.join(root, filename))
 
@@ -34,8 +34,10 @@ def play_songs(num=3):
         while pygame.mixer.music.get_busy():
             clock.tick(30)
 
+
 def pause():
     bg.running
+
 
 def _get_running_job():
     print(bg.get_jobs(pending=False))
