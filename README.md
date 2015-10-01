@@ -10,15 +10,14 @@ On a Raspberry Pi:
 
 ```
 sudo apt-get -y update; sudo apt-get -y upgrade
-sudo apt-get -y install python-dev python-pip supervisor
+sudo apt-get -y install python-dev python-pip mpg123 supervisor
 sudo dpkg-reconfigure tzdata
 git clone git@github.com:everett-toews/pi-clock.git
 cd pi-clock
 sudo cp pi-clock.conf /etc/supervisor/conf.d/
 sudo pip install --upgrade pip
 sudo pip install virtualenv
-# system-site-packages for pygame
-virtualenv --system-site-packages venv
+virtualenv venv
 source venv/bin/activate
 pip install -r requirements.txt
 pip install ipython
