@@ -41,6 +41,7 @@ service supervisor status
 sudo supervisorctl status pi-clock
 sudo supervisorctl update pi-clock
 sudo supervisorctl start pi-clock
+sudo supervisorctl restart pi-clock
 
 # on pi-clock.conf file changes
 sudo supervisorctl reread
@@ -60,6 +61,7 @@ sshfs -o IdentityFile=~/.ssh/id_rsa.clock pi@pi.clock.ip.addr:pi-clock ~/dev/ssh
 
 cd pi-clock
 source venv/bin/activate
+python -m unittest discover tests
 python manage.py runserver --debug
 
 cd ..

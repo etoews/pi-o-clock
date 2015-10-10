@@ -35,6 +35,11 @@ def play_alarm(alarm):
     job.func()
 
 
+def disable_alarm(alarm):
+    job = bg.get_job(alarm.id)
+    job.pause()
+
+
 def _job_to_alarm(job):
     return Alarm(
         id=job.id,

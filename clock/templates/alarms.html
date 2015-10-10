@@ -11,7 +11,6 @@
                         <th>Day(s)</th>
                         <th>Time</th>
                         <th>Next Run</th>
-                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -21,9 +20,6 @@
                         <td>{{ alarm.days }}</td>
                         <td>{{ alarm.hour }}:{{ '%02d' | format(alarm.minute) }}</td>
                         <td>{{ moment(alarm.next_run, True).fromNow(refresh=True) }}</td>
-                        <td>
-                            <span class="glyphicon glyphicon-ban-circle"></span>
-                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>

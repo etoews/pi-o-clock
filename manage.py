@@ -1,7 +1,7 @@
 from clock import create_app
 from flask.ext.script import Manager, Shell
 
-app = create_app()
+app = create_app('production')
 manager = Manager(app)
 
 
