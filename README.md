@@ -1,8 +1,23 @@
-# Pi Clock
+# Pi O'Clock
 
-Alarm clock for the Raspberry Pi.
+An alarm clock for the Raspberry Pi.
+
+![Pi O'Clock](clock/static/pi-o-clock.png)
 
 Deployed on a Raspberry Pi Model B 2011.12 running Raspbian 2015-05-05
+
+## Features
+
+Development is ongoing.
+
+* [x] Alarms
+* [x] Play songs
+* [ ] Tell the weather
+* [ ] Tell a joke
+* [ ] Words of wisdom
+* [ ] Say something random
+* [ ] Pester your children
+* [ ] LED clock display
 
 ## Install
 
@@ -57,7 +72,7 @@ Install [FUSE and SSHFS](https://osxfuse.github.io/)
 ```
 ssh-keygen -t rsa -b 4096 -N '' -f ~/.ssh/id_rsa.clock
 mkdir -p ~/dev/sshfs/pi-o-clock
-sshfs -o IdentityFile=~/.ssh/id_rsa.clock pi@pi.clock.ip.addr:pi-o-clock ~/dev/sshfs/pi-o-clock/
+sshfs -o IdentityFile=~/.ssh/id_rsa.clock pi@raspberry.pi.ip.address:pi-o-clock ~/dev/sshfs/pi-o-clock/
 
 cd pi-o-clock
 source venv/bin/activate
@@ -67,4 +82,3 @@ python manage.py runserver --debug
 cd ..
 sudo umount pi-o-clock
 ```
-
