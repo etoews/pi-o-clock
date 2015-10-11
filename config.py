@@ -12,14 +12,14 @@ class Config:
 
 class TestingConfig(Config):
     TESTING = True
-    LOG_FILE = os.path.join(basedir, 'pi-clock-test.log')
-    DB_FILE = os.path.join(basedir, 'pi-clock-test.sqlite')
+    LOG_FILE = os.path.join(basedir, 'pi-o-clock-test.log')
+    DB_FILE = os.path.join(basedir, 'pi-o-clock-test.sqlite')
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + DB_FILE
 
 
 class ProductionConfig(Config):
-    LOG_FILE = os.path.join(basedir, 'pi-clock.log')
-    DB_FILE = os.path.join(basedir, 'pi-clock.sqlite')
+    LOG_FILE = os.path.join(basedir, 'pi-o-clock.log')
+    DB_FILE = os.path.join(basedir, 'pi-o-clock.sqlite')
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + DB_FILE
 
 
