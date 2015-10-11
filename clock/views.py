@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, flash
+from flask import Blueprint, render_template
 
 from clock.sched import Alarm
 from clock import sched
@@ -26,6 +26,7 @@ def play_alarm(alarm_id):
     sched.play_alarm(alarm)
 
     return render_template('alarm.html', alarm=alarm)
+
 
 @views.route('/alarms/<alarm_id>/disable')
 def disable_alarm(alarm_id):

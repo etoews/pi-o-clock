@@ -1,10 +1,13 @@
+import os
 import unittest
 
 from clock import create_app
 from clock import sched
+from clock.sched import Alarm
 
 
 class TestSched(unittest.TestCase):
+
     @classmethod
     def setUpClass(cls):
         cls.app = create_app('testing')
@@ -13,8 +16,13 @@ class TestSched(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        pass
+        os.remove(cls.app.config['DB_FILE'])
+        os.remove(cls.app.config['LOG_FILE'])
+
+    def test_add_alarm(self):
+        alarm = Alarm(days='mon-fri', hour='7', )
+        sched.add_alarm(alarm)
 
     def test_get_alarms(self):
         alarms = sched.get_alarms()
-        self.assertGreater(len(alarms), 0)
+        self.assertEqual(len(alarms), 1)

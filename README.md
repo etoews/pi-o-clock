@@ -2,7 +2,7 @@
 
 Alarm clock for the Raspberry Pi.
 
-Written on a Raspberry Pi Model B 2011.12 running Raspbian 2015-05-05
+Deployed on a Raspberry Pi Model B 2011.12 running Raspbian 2015-05-05
 
 ## Install
 
