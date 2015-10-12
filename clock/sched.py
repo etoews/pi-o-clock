@@ -4,14 +4,17 @@ from clock import bg
 import action
 
 
-Alarm = namedtuple('Alarm', 'id days hour minute next_run')
-Alarm.__new__.__defaults__ = (None, None, None, None, None)
+Alarm = namedtuple('Alarm', 'id name days hour minute next_run')
+Alarm.__new__.__defaults__ = (None, None, None, None, None, None)
 
 
 def add_alarm(alarm):
-    bg.add_job(
+    alarm_id = alarm.name.lower().replace(' ', '_')
+
+    return bg.add_job(
         action.play_songs,
-        id=alarm.id,
+        id=alarm_id,
+        name=alarm.name,
         trigger='cron',
         day_of_week=alarm.days,
         hour=alarm.hour,
@@ -43,6 +46,7 @@ def disable_alarm(alarm):
 def _job_to_alarm(job):
     return Alarm(
         id=job.id,
+        name=job.name,
         days=str(job.trigger.fields[4]),
         hour=int(str(job.trigger.fields[5])),
         minute=int(str(job.trigger.fields[6])),

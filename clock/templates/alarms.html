@@ -7,7 +7,7 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>Name</th>
                         <th>Day(s)</th>
                         <th>Time</th>
                         <th>Next Run</th>
@@ -16,7 +16,7 @@
                 <tbody>
                 {% for alarm in alarms %}
                     <tr class='clickable-row' data-href='alarms/{{ alarm.id }}'>
-                        <td>{{ alarm.id }}</td>
+                        <td>{{ alarm.name }}</td>
                         <td>{{ alarm.days }}</td>
                         <td>{{ alarm.hour }}:{{ '%02d' | format(alarm.minute) }}</td>
                         <td>{{ moment(alarm.next_run, True).fromNow(refresh=True) }}</td>

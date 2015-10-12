@@ -20,8 +20,12 @@ class TestSched(unittest.TestCase):
         os.remove(cls.app.config['LOG_FILE'])
 
     def test_add_alarm(self):
-        alarm = Alarm(days='mon-fri', hour='7', )
+        alarm = Alarm(name='pi alarm', days='mon-fri', hour=3, minute=14)
         sched.add_alarm(alarm)
+
+    def test_get_alarm(self):
+        alarm = sched.get_alarm(Alarm(id='pi_alarm'))
+        self.assertEqual(alarm.name, 'pi alarm')
 
     def test_get_alarms(self):
         alarms = sched.get_alarms()
