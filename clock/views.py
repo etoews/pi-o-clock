@@ -7,23 +7,23 @@ from forms import AlarmForm
 views = Blueprint('views', __name__)
 
 
-@views.route('/')
-def get_alarms():
-    alarms = sched.get_alarms()
-
-    return render_template('alarms.html', alarms=alarms)
-
-
 @views.route('/alarms/add')
 def add_alarm():
-    return render_template('add-alarm.html', mode='add', form=AlarmForm())
+    return render_template('alarm/add-alarm.html', form=AlarmForm())
+
+
+@views.route('/')
+def list_alarms():
+    alarms = sched.list_alarms()
+
+    return render_template('alarm/list-alarms.html', alarms=alarms)
 
 
 @views.route('/alarms/<alarm_id>')
 def get_alarm(alarm_id):
     alarm = sched.get_alarm(Alarm(id=alarm_id))
 
-    return render_template('alarm.html', mode='get', alarm=alarm)
+    return render_template('alarm/get-alarm.html', alarm=alarm)
 
 
 @views.route('/alarms/<alarm_id>/play')
@@ -31,7 +31,7 @@ def play_alarm(alarm_id):
     alarm = sched.get_alarm(Alarm(id=alarm_id))
     sched.play_alarm(alarm)
 
-    return render_template('alarm.html', alarm=alarm)
+    return render_template('alarm/get-alarm.html', alarm=alarm)
 
 
 @views.route('/alarms/<alarm_id>/disable')
@@ -39,4 +39,4 @@ def disable_alarm(alarm_id):
     alarm = sched.get_alarm(Alarm(id=alarm_id))
     sched.play_alarm(alarm)
 
-    return render_template('alarm.html', alarm=alarm)
+    return render_template('alarm/get-alarm.html', alarm=alarm)

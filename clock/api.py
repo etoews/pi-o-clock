@@ -10,7 +10,7 @@ api = Blueprint('api', __name__)
 
 @api.route('/alarms')
 def get_alarms():
-    alarms = sched.get_alarms()
+    alarms = sched.list_alarms()
     alarm_dicts = []
 
     for alarm in alarms:

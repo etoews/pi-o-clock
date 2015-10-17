@@ -25,7 +25,7 @@ def remove_alarm(alarm):
     return bg.remove_job(alarm.id)
 
 
-def get_alarms():
+def list_alarms():
     return [_job_to_alarm(job) for job in bg.get_jobs()]
 
 

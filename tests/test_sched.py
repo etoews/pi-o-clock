@@ -28,5 +28,5 @@ class TestSched(unittest.TestCase):
         self.assertEqual(alarm.name, 'pi alarm')
 
     def test_get_alarms(self):
-        alarms = sched.get_alarms()
+        alarms = sched.list_alarms()
         self.assertEqual(len(alarms), 1)
