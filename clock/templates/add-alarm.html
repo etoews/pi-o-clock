@@ -10,36 +10,31 @@
                 <tbody>
                     <tr>
                         <td>Name</td>
-                        <td>{{ alarm.name }}</td>
+                        <td>{{ form.name }}</td>
                     </tr>
                     <tr>
                         <td>Day(s)</td>
-                        <td>{{ alarm.days }}</td>
+                        <td>{{ form.days }}</td>
                     </tr>
                     <tr>
-                        <td>Time</td>
-                        <td>{{ alarm.hour }}:{{ '%02d' | format(alarm.minute) }}</td>
+                        <td>Hour</td>
+                        <td>{{ form.hour }}</td>
                     </tr>
                     <tr>
-                        <td>Next Run</td>
-                        <td>{{ moment(alarm.next_run, True).fromNow(refresh=True) }}</td>
+                        <td>Minute</td>
+                        <td>{{ form.minute }}</td>
                     </tr>
                     <tr>
                         <td>Action(s)</td>
                         <td></td>
                     </tr>
                     <tr>
-                        <td>{{ alarm.action }}</td>
+                        <td>{{ form.action }}</td>
                         <td></td>
                     </tr>
                 </tbody>
             </table>
-            <p>
-                <a class="btn btn-default" href="/alarms/{{ alarm.id }}/play" role="button">Play</a>
-                <a class="btn btn-default" href="/alarms/{{ alarm.id }}/disable" role="button">Disable</a>
-                <a class="btn btn-default" href="/alarms/{{ alarm.id }}/edit" role="button">Edit</a>
-                <a class="btn btn-default" href="/alarms/{{ alarm.id }}/delete" role="button">Delete</a>
-            </p>
+            <p>{{ form.submit }}</p>
         </div>
     </div>
 </div>
@@ -51,3 +46,4 @@
 <script>
 </script>
 {% endblock %}
+

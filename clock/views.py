@@ -16,7 +16,7 @@ def get_alarms():
 
 @views.route('/alarms/add')
 def add_alarm():
-    return render_template('alarm.html', mode='add', form=AlarmForm())
+    return render_template('add-alarm.html', mode='add', form=AlarmForm())
 
 
 @views.route('/alarms/<alarm_id>')
