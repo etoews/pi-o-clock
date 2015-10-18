@@ -29,9 +29,58 @@ def play_songs(num=3):
         call(["mpg123", "-q", song])
 
 
+def audio(filename):
+    pass
+
+
+def say(phrase):
+    pass
+
+
+def weather(postal_code):
+    pass
+
+
+def joke(phrase):
+    pass
+
+
 def pause():
     bg.running
 
 
 def _get_running_job():
     print(bg.get_jobs(pending=False))
+
+actions = {
+    "play_songs": {
+        "name": "Play Songs",
+        "function": play_songs,
+        "param": "number_of_songs",
+        "param_description": "Number of Songs"
+    },
+    "say": {
+        "name": "Say",
+        "function": say,
+        "param": "phrase",
+        "param_description": "Phrase"
+    },
+    "weather": {
+        "name": "Weather",
+        "function": weather,
+        "param": "postal_code",
+        "param_description": "Postal Code"
+    },
+    "joke": {
+        "name": "Joke",
+        "function": joke,
+        "param": "phrase",
+        "param_description": "The joke"
+    },
+    "audio": {
+        "name": "Audio",
+        "function": audio,
+        "param": "filename",
+        "param_description": "The audio filename"
+    }
+}

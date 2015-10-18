@@ -25,12 +25,12 @@
                         <td>{{ moment(alarm.next_run, True).fromNow(refresh=True) }}</td>
                     </tr>
                     <tr>
-                        <td>Action(s)</td>
-                        <td></td>
+                        <td>Action</td>
+                        <td>Parameter</td>
                     </tr>
                     <tr>
                         <td>{{ alarm.action }}</td>
-                        <td></td>
+                        <td>{{ alarm.param }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -38,7 +38,7 @@
                 <a class="btn btn-default" href="/alarms/{{ alarm.id }}/play" role="button">Play</a>
                 <a class="btn btn-default" href="/alarms/{{ alarm.id }}/disable" role="button">Disable</a>
                 <a class="btn btn-default" href="/alarms/{{ alarm.id }}/edit" role="button">Edit</a>
-                <a class="btn btn-default" href="/alarms/{{ alarm.id }}/delete" role="button">Delete</a>
+                <a class="btn btn-default" href="/alarms/{{ alarm.id }}/remove" role="button">Remove</a>
             </p>
         </div>
     </div>

@@ -1,18 +1,24 @@
 from collections import namedtuple
+import logging
 
+from action import actions
 from clock import bg
-import action
+
+logger = logging.getLogger(__name__)
 
 
-Alarm = namedtuple('Alarm', 'id name days hour minute next_run')
-Alarm.__new__.__defaults__ = (None, None, None, None, None, None)
+Alarm = namedtuple('Alarm', 'id name days hour minute next_run, action, param')
+Alarm.__new__.__defaults__ = (None, None, None, None, None, None, None, None)
 
 
 def add_alarm(alarm):
+    logger.debug("Adding alarm %s", alarm)
+
     alarm_id = alarm.name.lower().replace(' ', '_')
 
-    return bg.add_job(
-        action.play_songs,
+    job = bg.add_job(
+        actions[alarm.action]['function'],
+        args=[alarm.param],
         id=alarm_id,
         name=alarm.name,
         trigger='cron',
@@ -20,8 +26,12 @@ def add_alarm(alarm):
         hour=alarm.hour,
         minute=alarm.minute)
 
+    return job
+
 
 def remove_alarm(alarm):
+    logger.debug("Removing alarm %s", alarm)
+
     return bg.remove_job(alarm.id)
 
 
@@ -44,7 +54,12 @@ def disable_alarm(alarm):
 
 
 def _job_to_alarm(job):
+    action_id = job.func_ref.split(':')[1]
+    action_name = actions[action_id]['name']
+
     return Alarm(
+        action=action_name,
+        param=job.args[0],
         id=job.id,
         name=job.name,
         days=str(job.trigger.fields[4]),

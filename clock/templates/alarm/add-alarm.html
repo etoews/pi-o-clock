@@ -6,35 +6,38 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4">
-            <table class="table">
-                <tbody>
-                    <tr>
-                        <td>Name</td>
-                        <td>{{ form.name }}</td>
-                    </tr>
-                    <tr>
-                        <td>Day(s)</td>
-                        <td>{{ form.days }}</td>
-                    </tr>
-                    <tr>
-                        <td>Hour</td>
-                        <td>{{ form.hour }}</td>
-                    </tr>
-                    <tr>
-                        <td>Minute</td>
-                        <td>{{ form.minute }}</td>
-                    </tr>
-                    <tr>
-                        <td>Action(s)</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>{{ form.action }}</td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-            <p>{{ form.submit }}</p>
+            <form method="POST" action="/alarms/add">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>Name</td>
+                            <td>{{ form.name }}</td>
+                        </tr>
+                        <tr>
+                            <td>Day(s)</td>
+                            <td>{{ form.days }}</td>
+                        </tr>
+                        <tr>
+                            <td>Hour</td>
+                            <td>{{ form.hour }}</td>
+                        </tr>
+                        <tr>
+                            <td>Minute</td>
+                            <td>{{ form.minute }}</td>
+                        </tr>
+                        <tr>
+                            <td>Action</td>
+                            <td>Parameter</td>
+                        </tr>
+                        <tr>
+                            <td>{{ form.action }}</td>
+                            <td>{{ form.param }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                {{ form.hidden_tag() }}
+                <p>{{ form.submit }}</p>
+            </form>
         </div>
     </div>
 </div>

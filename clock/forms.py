@@ -8,5 +8,6 @@ class AlarmForm(Form):
     days = StringField('Day(s)', validators=[DataRequired()])
     hour = IntegerField('Hour', validators=[DataRequired(), NumberRange(0, 23)])
     minute = IntegerField('Minute', validators=[DataRequired(), NumberRange(0, 59)])
-    action = SelectField('Action', choices=[('Play Songs', 'play_songs')])
+    action = SelectField('Action', choices=[('play_songs', 'Play Songs')])
+    param = IntegerField('Num', validators=[DataRequired()])
     submit = SubmitField('Okay')
