@@ -2,6 +2,8 @@
 
 An alarm clock for the Raspberry Pi.
 
+[![Build Status](https://travis-ci.org/everett-toews/pi-o-clock.svg)](https://travis-ci.org/everett-toews/pi-o-clock)
+
 ![Pi O'Clock](clock/static/pi-o-clock.png)
 
 Deployed on a Raspberry Pi Model B 2011.12 running Raspbian 2015-05-05
@@ -44,9 +46,10 @@ sudo reboot
 On a Raspberry Pi:
 
 ```
+ssh -i ~/.ssh/id_rsa.clock pi@raspberry.pi.ip.address
 cd pi-o-clock
-source venv/bin/activate
-sudo /home/pi/pi-o-clock/venv/bin/python /home/pi/pi-o-clock/manage.py runserver --no-reload --host 0.0.0.0 --port 80
+git pull
+sudo supervisorctl restart pi-o-clock
 ```
 
 ### Supervisor
