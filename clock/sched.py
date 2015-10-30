@@ -3,6 +3,7 @@ import logging
 
 from action import actions
 from clock import bg
+from clock import utils
 
 logger = logging.getLogger(__name__)
 
@@ -14,7 +15,7 @@ Alarm.__new__.__defaults__ = (None, None, None, None, None, None, None, None)
 def add_alarm(alarm):
     logger.debug("Adding alarm %s", alarm)
 
-    alarm_id = alarm.name.lower().replace(' ', '_')
+    alarm_id = utils.hyphenate(alarm.name)
 
     job = bg.add_job(
         actions[alarm.action]['function'],
@@ -50,7 +51,7 @@ def get_alarm(alarm):
 
 def play_alarm(alarm):
     job = bg.get_job(alarm.id)
-    job.func()
+    job.func(job.args[0])
 
 
 def disable_alarm(alarm):

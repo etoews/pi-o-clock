@@ -4,14 +4,16 @@ import os
 import random
 from subprocess import call
 
-from clock import bg
+import requests
+
+from clock import utils
 
 logger = logging.getLogger(__name__)
 
 
 def play_songs(num=3):
     songs = []
-    for root, _, filenames in os.walk('audio'):
+    for root, _, filenames in os.walk('audio/songs'):
         for filename in fnmatch.filter(filenames, '*.mp3'):
             songs.append(os.path.abspath(os.path.join(root, filename)))
 
@@ -34,7 +36,22 @@ def audio(filename):
 
 
 def say(phrase):
-    pass
+    filename = utils.hyphenate(phrase) + '.mp3'
+    filepath = os.path.abspath(os.path.join(os.getcwd(), 'audio', 'say', filename))
+
+    if not os.path.exists(filepath):
+        voicerss_api_key = os.environ.get('VOICERSS_API_KEY')
+        params = {
+            'key': voicerss_api_key,
+            'src': phrase,
+            'hl': 'en-gb',
+            'f': '32khz_16bit_stereo'}
+        response = requests.get('https://api.voicerss.org', params=params)
+
+        with open(filepath, 'w') as f:
+            f.write(response.content)
+
+    call(["mpg123", "-q", filepath])
 
 
 def weather(postal_code):
@@ -44,13 +61,6 @@ def weather(postal_code):
 def joke(phrase):
     pass
 
-
-def pause():
-    bg.running
-
-
-def _get_running_job():
-    print(bg.get_jobs(pending=False))
 
 actions = {
     "play_songs": {

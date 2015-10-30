@@ -37,20 +37,33 @@ def _configure_logging(file):
     root_logger.addHandler(file_handler)
 
 
+def _default_alarm(env):
+    from clock import sched
+    from clock.sched import Alarm
+
+    if sched.get_alarm(Alarm('pi-oclock')) is None and env is not 'testing':
+        alarm = Alarm(name="Pi O'Clock", days='mon-sun', hour=15, minute=14,
+                      action='say', param="It's Pi O'Clock!")
+        sched.add_alarm(alarm)
+
+
 def create_app(env):
     app = Flask(__name__)
-    app.config.from_object(config[env])
 
+    app.config.from_object(config[env])
     config[env].init_app(app)
+
     _configure_logging(app.config['LOG_FILE'])
+
     logger.info("Welcome to Pi Clock")
+
     _configure_scheduler(app.config['SQLALCHEMY_DATABASE_URI'])
+    _default_alarm(env)
 
     bootstrap.init_app(app)
     moment.init_app(app)
 
     from views import views as views_bp
     app.register_blueprint(views_bp)
-
 
     return app
