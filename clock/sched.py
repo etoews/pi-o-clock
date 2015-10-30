@@ -32,7 +32,7 @@ def add_alarm(alarm):
 def remove_alarm(alarm):
     logger.debug("Removing alarm %s", alarm)
 
-    return bg.remove_job(alarm.id)
+    bg.remove_job(alarm.id)
 
 
 def list_alarms():
@@ -40,7 +40,12 @@ def list_alarms():
 
 
 def get_alarm(alarm):
-    return _job_to_alarm(bg.get_job(alarm.id))
+    alarm = bg.get_job(alarm.id)
+
+    if alarm is not None:
+        return _job_to_alarm(alarm)
+    else:
+        return None
 
 
 def play_alarm(alarm):

@@ -19,7 +19,7 @@ class TestSched(unittest.TestCase):
         os.remove(cls.app.config['DB_FILE'])
         os.remove(cls.app.config['LOG_FILE'])
 
-    def test_add_alarm(self):
+    def test_add_alarm_play_songs(self):
         alarm = Alarm(name='pi alarm', days='mon-fri', hour=3, minute=14,
                       action='play_songs', param=3)
         sched.add_alarm(alarm)
@@ -36,3 +36,8 @@ class TestSched(unittest.TestCase):
         alarm = alarms[0]
         self.assertEqual(alarm.id, 'pi_alarm')
         self.assertEqual(alarm.name, 'pi alarm')
+
+    def test_remove_alarm(self):
+        sched.remove_alarm(Alarm(id='pi_alarm'))
+
+        self.assertIsNone(sched.get_alarm(Alarm(id='pi_alarm')))
