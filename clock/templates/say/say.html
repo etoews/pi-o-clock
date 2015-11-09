@@ -1,0 +1,30 @@
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% extends "base.html" %}
+
+{% block page_content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <form method="POST" action="/say">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td><input type="text" name="phrase"></td>
+                            <td><input type="submit" value="Okay"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+
+<script>
+</script>
+{% endblock %}
+

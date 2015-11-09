@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, flash, url_for
 
+from clock import action
 from clock.sched import Alarm
 from clock import sched
 from forms import AlarmForm
@@ -65,3 +66,12 @@ def disable_alarm(alarm_id):
     sched.play_alarm(alarm)
 
     return render_template('alarm/get-alarm.html', alarm=alarm)
+
+
+@views.route('/say', methods=['GET', 'POST'])
+def say():
+    if request.method == 'POST':
+        action.say(request.form['phrase'])
+        return redirect(url_for('.say'))
+
+    return render_template('say/say.html')
