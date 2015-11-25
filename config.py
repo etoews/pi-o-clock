@@ -12,7 +12,7 @@ class Config:
         pass
 
 
-class TestingConfig(Config):
+class TestConfig(Config):
     TESTING = True
     LOG_FILE = os.path.join(basedir, 'pi-o-clock-test.log')
     DB_FILE = os.path.join(basedir, 'pi-o-clock-test.sqlite')
@@ -25,6 +25,6 @@ class ProductionConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + DB_FILE
 
 config = {
-    'testing': TestingConfig,
+    'test': TestConfig,
     'production': ProductionConfig,
 }

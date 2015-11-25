@@ -27,7 +27,7 @@ def add_alarm(alarm):
         hour=alarm.hour,
         minute=alarm.minute)
 
-    return job
+    return _job_to_alarm(job)
 
 
 def remove_alarm(alarm):

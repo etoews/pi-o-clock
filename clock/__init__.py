@@ -41,7 +41,7 @@ def _default_alarm(env):
     from clock import sched
     from clock.sched import Alarm
 
-    if sched.get_alarm(Alarm('pi-oclock')) is None and env is not 'testing':
+    if sched.get_alarm(Alarm('pi-oclock')) is None and env is not 'test':
         alarm = Alarm(name="Pi O'Clock", days='mon-sun', hour=15, minute=14,
                       action='say', param="It's Pi O'Clock!")
         sched.add_alarm(alarm)

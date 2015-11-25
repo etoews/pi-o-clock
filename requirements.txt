@@ -7,3 +7,4 @@ Flask-WTF~=0.12
 apscheduler~=3.0
 SQLAlchemy~=1.0
 requests~=2.8
+mock~=1.3

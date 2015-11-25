@@ -2,7 +2,7 @@ import fnmatch
 import logging
 import os
 import random
-from subprocess import call
+import subprocess
 
 import requests
 
@@ -18,7 +18,7 @@ def play_songs(num=3):
             songs.append(os.path.abspath(os.path.join(root, filename)))
 
     if not songs:
-        logger.warn("No songs in %s", os.path.abspath('audio'))
+        logger.warn("No songs in %s", os.path.abspath('audio/songs'))
         return
 
     n = num if num < len(songs) else len(songs)
@@ -28,7 +28,7 @@ def play_songs(num=3):
 
         logger.debug("Playing %s", song)
 
-        call(["mpg123", "-q", song])
+        subprocess.call(["mpg123", "-q", song])
 
 
 def audio(filename):
@@ -37,7 +37,8 @@ def audio(filename):
 
 def say(phrase):
     filename = utils.hyphenate(phrase) + '.mp3'
-    filepath = os.path.abspath(os.path.join(os.getcwd(), 'audio', 'say', filename))
+    filepath = os.path.abspath(
+        os.path.join(os.getcwd(), 'audio', 'say', filename))
 
     if not os.path.exists(filepath):
         voicerss_api_key = os.environ.get('VOICERSS_API_KEY')
@@ -51,7 +52,7 @@ def say(phrase):
         with open(filepath, 'w') as f:
             f.write(response.content)
 
-    call(["mpg123", "-q", filepath])
+    subprocess.call(["mpg123", "-q", filepath])
 
 
 def weather(postal_code):

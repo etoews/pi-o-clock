@@ -10,7 +10,7 @@ class TestSched(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.app = create_app('testing')
+        cls.app = create_app('test')
         cls.app_context = cls.app.app_context()
         cls.app_context.push()
 
@@ -22,20 +22,21 @@ class TestSched(unittest.TestCase):
     def test_add_alarm_play_songs(self):
         alarm = Alarm(name='Pi Alarm', days='mon-fri', hour=3, minute=14,
                       action='play_songs', param=3)
-        sched.add_alarm(alarm)
+        alarm_added = sched.add_alarm(alarm)
+        self.assertEqual('pi-alarm', alarm_added.id)
 
     def test_get_alarm(self):
         alarm = sched.get_alarm(Alarm(id='pi-alarm'))
-        self.assertEqual(alarm.id, 'pi-alarm')
-        self.assertEqual(alarm.name, 'Pi Alarm')
+        self.assertEqual('pi-alarm', alarm.id)
+        self.assertEqual('Pi Alarm', alarm.name)
 
     def test_list_alarms(self):
         alarms = sched.list_alarms()
-        self.assertEqual(len(alarms), 1)
+        self.assertEqual(1, len(alarms))
 
         alarm = alarms[0]
-        self.assertEqual(alarm.id, 'pi-alarm')
-        self.assertEqual(alarm.name, 'Pi Alarm')
+        self.assertEqual('pi-alarm', alarm.id)
+        self.assertEqual('Pi Alarm', alarm.name)
 
     def test_remove_alarm(self):
         sched.remove_alarm(Alarm(id='pi-alarm'))
