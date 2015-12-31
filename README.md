@@ -27,17 +27,23 @@ On a Raspberry Pi:
 
 ```
 sudo apt-get -y update; sudo apt-get -y upgrade
-sudo apt-get -y install python-dev python-pip mpg123 supervisor
+sudo apt-get -y install build-essential python-dev python-pip mpg123 supervisor
 sudo dpkg-reconfigure tzdata
+
+sudo apt-get -y install i2c-tools libffi-dev
+sudo sh -c 'echo "i2c-dev\ni2c-bcm2708" >> /etc/modules'
+sudo sh -c 'echo "dtparam=i2c1=on\ndtparam=i2c_arm=on" >> /boot/config.txt'
+
 git clone git@github.com:everett-toews/pi-o-clock.git
-cd pi-o-clock
-sudo cp pi-o-clock.conf /etc/supervisor/conf.d/
+sudo cp /home/pi/pi-o-clock/pi-o-clock.conf /etc/supervisor/conf.d/
+
+sudo pip install --upgrade setuptools
 sudo pip install --upgrade pip
-sudo pip install virtualenv
-virtualenv venv
-source venv/bin/activate
-pip install -r requirements.txt
-pip install ipython
+sudo pip install -r /home/pi/pi-o-clock/requirements.txt
+
+git clone git@github.com:adafruit/Adafruit_Python_LED_Backpack.git
+sudo python /home/pi/Adafruit_Python_LED_Backpack/setup.py install
+
 sudo reboot
 ```
 
@@ -56,6 +62,7 @@ sudo supervisorctl restart pi-o-clock
 
 ```
 service supervisor status
+
 sudo supervisorctl status pi-o-clock
 sudo supervisorctl update pi-o-clock
 sudo supervisorctl start pi-o-clock
