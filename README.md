@@ -2,8 +2,6 @@
 
 An alarm clock for the Raspberry Pi.
 
-[![Build Status](https://travis-ci.org/everett-toews/pi-o-clock.svg)](https://travis-ci.org/everett-toews/pi-o-clock)
-
 ![Pi O'Clock](clock/static/pi-o-clock.png)
 
 Deployed on a Raspberry Pi Model B 2011.12 running Raspbian 2015-05-05
@@ -12,6 +10,7 @@ Deployed on a Raspberry Pi Model B 2011.12 running Raspbian 2015-05-05
 
 Development is ongoing.
 
+* [x] LED clock display
 * [x] Alarms
 * [x] Play songs
 * [ ] Tell the weather
@@ -19,7 +18,6 @@ Development is ongoing.
 * [ ] Words of wisdom
 * [ ] Say something random
 * [ ] Pester your children
-* [ ] LED clock display
 
 ## Install
 
@@ -90,5 +88,23 @@ python -m unittest discover tests
 python manage.py runserver --debug
 
 cd ..
-sudo umount pi-o-clock
+sudo umount ~/dev/sshfs/pi-o-clock/
+```
+
+## Interactive Shell
+
+On a Raspberry Pi:
+
+```
+sudo python manage.py shell
+
+from clock import bg
+bg.print_jobs()
+
+from clock import sched
+sched.list_alarms()
+
+from clock.sched import Alarm
+sched.play_alarm(Alarm('pi-oclock'))
+sched.remove_alarm(Alarm('clock-tick'))
 ```
