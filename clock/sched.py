@@ -1,6 +1,7 @@
 from collections import namedtuple
 import logging
 
+import action
 from action import actions
 from clock import bg
 from clock import utils
@@ -13,7 +14,7 @@ Alarm.__new__.__defaults__ = (None, None, None, None, None, None, None, None)
 
 
 def add_alarm(alarm):
-    logger.debug("Adding alarm %s", alarm)
+    logger.debug("Adding %s", alarm)
 
     alarm_id = utils.hyphenate(alarm.name)
 
@@ -23,6 +24,7 @@ def add_alarm(alarm):
         id=alarm_id,
         name=alarm.name,
         trigger='cron',
+        misfire_grace_time=30,
         day_of_week=alarm.days,
         hour=alarm.hour,
         minute=alarm.minute)
@@ -31,13 +33,13 @@ def add_alarm(alarm):
 
 
 def remove_alarm(alarm):
-    logger.debug("Removing alarm %s", alarm)
+    logger.debug("Removing %s", alarm)
 
     bg.remove_job(alarm.id)
 
 
 def list_alarms():
-    return [_job_to_alarm(job) for job in bg.get_jobs()]
+    return [_job_to_alarm(job) for job in bg.get_jobs() if job.id != 'clock-tick']
 
 
 def get_alarm(alarm):
@@ -57,6 +59,28 @@ def play_alarm(alarm):
 def disable_alarm(alarm):
     job = bg.get_job(alarm.id)
     job.pause()
+
+
+def add_pi_oclock_alarm():
+    if get_alarm(Alarm('pi-oclock')) is None:
+        alarm = Alarm(name="Pi O'Clock", days='mon-sun', hour=15, minute=14,
+                      action='say', param="It's Pi O'Clock!")
+        add_alarm(alarm)
+
+
+def add_clock_tick():
+    if bg.get_job('clock-tick') is None:
+        logger.debug("Adding Clock Tick")
+
+        job = bg.add_job(
+            action.clock_tick,
+            id='clock-tick',
+            name='Clock Tick',
+            trigger='cron',
+            misfire_grace_time=30,
+            second=0)
+
+    action.clock_tick()
 
 
 def _job_to_alarm(job):

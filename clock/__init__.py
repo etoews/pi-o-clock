@@ -36,15 +36,22 @@ def _configure_logging(file):
     file_handler.setFormatter(formatter)
     root_logger.addHandler(file_handler)
 
+    clock_logger = logging.getLogger('Adafruit_I2C')
+    clock_logger.setLevel(logging.WARNING)
+    sched_logger = logging.getLogger('apscheduler.scheduler')
+    sched_logger.setLevel(logging.WARNING)
+    exec_logger = logging.getLogger('apscheduler.executors.default')
+    exec_logger.setLevel(logging.WARNING)
 
-def _default_alarm(env):
+
+def _configure_default_alarm(env):
     from clock import sched
-    from clock.sched import Alarm
+    sched.add_pi_oclock_alarm()
 
-    if sched.get_alarm(Alarm('pi-oclock')) is None and env is not 'test':
-        alarm = Alarm(name="Pi O'Clock", days='mon-sun', hour=15, minute=14,
-                      action='say', param="It's Pi O'Clock!")
-        sched.add_alarm(alarm)
+
+def _configure_clock_tick(env):
+    from clock import sched
+    sched.add_clock_tick()
 
 
 def create_app(env):
@@ -55,10 +62,11 @@ def create_app(env):
 
     _configure_logging(app.config['LOG_FILE'])
 
-    logger.info("Welcome to Pi Clock")
+    logger.info("Welcome to Pi O'Clock")
 
     _configure_scheduler(app.config['SQLALCHEMY_DATABASE_URI'])
-    _default_alarm(env)
+    _configure_default_alarm(env)
+    _configure_clock_tick(env)
 
     bootstrap.init_app(app)
     moment.init_app(app)

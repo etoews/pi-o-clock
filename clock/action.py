@@ -3,12 +3,29 @@ import logging
 import os
 import random
 import subprocess
+from datetime import datetime
 
 import requests
+from Adafruit_LED_Backpack import SevenSegment
 
 from clock import utils
 
 logger = logging.getLogger(__name__)
+
+display = SevenSegment.SevenSegment()
+display.begin()
+
+
+def clock_tick():
+    time = datetime.now().strftime('%I%M')
+
+    if time.startswith('0'):
+        time = ' ' + time[1:]
+
+    display.clear()
+    display.set_colon(True)
+    display.print_number_str(time)
+    display.write_display()
 
 
 def play_songs(num=3):
