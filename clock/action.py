@@ -64,6 +64,8 @@ def say(phrase):
             'f': '32khz_16bit_stereo'}
         response = requests.get('https://api.voicerss.org', params=params)
 
+        # TODO: how about some error handling on the response
+
         with open(filepath, 'w') as f:
             f.write(response.content)
 

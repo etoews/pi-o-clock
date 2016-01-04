@@ -23,7 +23,10 @@ Development is ongoing.
 
 On a Raspberry Pi:
 
-```
+```bash
+# Disable power saving so Wi-Fi doesn't drop
+sudo sh -c 'echo "options 8192cu rtw_power_mgnt=0 rtw_enusbss=1 rtw_ips_mode=1" >> /etc/modprobe.d/8192cu.conf'
+
 sudo apt-get -y update; sudo apt-get -y upgrade
 sudo apt-get -y install build-essential python-dev python-pip mpg123 supervisor
 sudo dpkg-reconfigure tzdata
@@ -44,6 +47,8 @@ sudo python /home/pi/Adafruit_Python_LED_Backpack/setup.py install
 
 sudo reboot
 ```
+
+TODO: instructions for voicerss 
 
 ## Run
 

@@ -14,6 +14,7 @@ logger = logging.getLogger(__name__)
 
 bootstrap = Bootstrap()
 moment = Moment()
+# TODO: move bg to sched as __bg
 bg = BackgroundScheduler()
 
 
@@ -41,6 +42,12 @@ def _configure_logging(log_file):
     sched_logger = logging.getLogger('apscheduler')
     sched_logger.setLevel(logging.WARNING)
 
+    # TODO: log uncaught exceptions http://stackoverflow.com/questions/6234405/logging-uncaught-exceptions-in-python
+
+
+# TODO: configure voicerss api key
+# put VOICERSS_API_KEY in pi-o-clock.conf?
+# does pi-o-clock.conf really need the sudo in command = sudo python ...?
 
 def _configure_default_alarm(env):
     if env != 'test':
