@@ -8,9 +8,10 @@ from datetime import datetime
 import requests
 
 from clock import utils
-from clock import display
 
 logger = logging.getLogger(__name__)
+
+__display = None
 
 
 def clock_tick():
@@ -19,10 +20,10 @@ def clock_tick():
     if time.startswith('0'):
         time = ' ' + time[1:]
 
-    display.clear()
-    display.set_colon(True)
-    display.print_number_str(time)
-    display.write_display()
+    __display.clear()
+    __display.set_colon(True)
+    __display.print_number_str(time)
+    __display.write_display()
 
 
 def play_songs(num=3):
@@ -77,6 +78,19 @@ def weather(postal_code):
 
 def joke(phrase):
     pass
+
+
+def configure_clock_display():
+    try:
+        from Adafruit_LED_Backpack import SevenSegment
+
+        global __display
+        __display = SevenSegment.SevenSegment()
+        __display.begin()
+
+        return True
+    except ImportError:
+        return False
 
 
 actions = {

@@ -15,7 +15,6 @@ logger = logging.getLogger(__name__)
 bootstrap = Bootstrap()
 moment = Moment()
 bg = BackgroundScheduler()
-display = None
 
 
 def _configure_scheduler(url):
@@ -23,7 +22,7 @@ def _configure_scheduler(url):
     bg.start()
 
 
-def _configure_logging(file):
+def _configure_logging(log_file):
     root_logger = logging.getLogger()
     root_logger.setLevel(logging.DEBUG)
     formatter = logging.Formatter(
@@ -33,7 +32,7 @@ def _configure_logging(file):
     stdout.setFormatter(formatter)
     root_logger.addHandler(stdout)
 
-    file_handler = logging.FileHandler(file)
+    file_handler = logging.FileHandler(log_file)
     file_handler.setFormatter(formatter)
     root_logger.addHandler(file_handler)
 
@@ -51,19 +50,16 @@ def _configure_default_alarm(env):
 
 def _configure_clock_display(env):
     if env != 'test':
-        try:
-            from Adafruit_LED_Backpack import SevenSegment
+        from clock import action
+        configured = action.configure_clock_display()
 
-            global display
-            display = SevenSegment.SevenSegment()
-            display.begin()
-
+        if configured:
             from clock import sched
             sched.add_clock_tick()
-        except ImportError:
-            logger.warn("Could not import Adafruit_LED_Backpack. View the "
+        else:
+            logger.warn("Could not configure LED clock display. View the "
                         "README.md for installation instructions. If an LED "
-                        "isn't attachedor ignore this message.")
+                        "isn't attached, ignore this message.")
 
 
 def create_app(env):
