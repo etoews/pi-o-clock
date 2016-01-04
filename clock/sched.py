@@ -62,17 +62,21 @@ def disable_alarm(alarm):
 
 
 def add_pi_oclock_alarm():
-    if get_alarm(Alarm('pi-oclock')) is None:
+    alarm = get_alarm(Alarm('pi-oclock'))
+
+    if alarm is None:
         alarm = Alarm(name="Pi O'Clock", days='mon-sun', hour=15, minute=14,
                       action='say', param="It's Pi O'Clock!")
-        add_alarm(alarm)
+        alarm = add_alarm(alarm)
+
+    play_alarm(alarm)
 
 
 def add_clock_tick():
     if bg.get_job('clock-tick') is None:
         logger.debug("Adding Clock Tick")
 
-        job = bg.add_job(
+        bg.add_job(
             action.clock_tick,
             id='clock-tick',
             name='Clock Tick',

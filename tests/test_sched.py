@@ -32,7 +32,7 @@ class TestSched(unittest.TestCase):
 
     def test_list_alarms(self):
         alarms = sched.list_alarms()
-        self.assertEqual(2, len(alarms))
+        self.assertEqual(1, len(alarms))
 
     def test_remove_alarm(self):
         sched.remove_alarm(Alarm(id='pi-alarm'))

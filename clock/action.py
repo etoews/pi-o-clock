@@ -6,14 +6,11 @@ import subprocess
 from datetime import datetime
 
 import requests
-from Adafruit_LED_Backpack import SevenSegment
 
 from clock import utils
+from clock import display
 
 logger = logging.getLogger(__name__)
-
-display = SevenSegment.SevenSegment()
-display.begin()
 
 
 def clock_tick():
@@ -68,6 +65,8 @@ def say(phrase):
 
         with open(filepath, 'w') as f:
             f.write(response.content)
+
+    logger.debug("Saying %s", filepath)
 
     subprocess.call(["mpg123", "-q", filepath])
 

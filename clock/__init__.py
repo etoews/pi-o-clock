@@ -15,6 +15,7 @@ logger = logging.getLogger(__name__)
 bootstrap = Bootstrap()
 moment = Moment()
 bg = BackgroundScheduler()
+display = None
 
 
 def _configure_scheduler(url):
@@ -38,20 +39,31 @@ def _configure_logging(file):
 
     clock_logger = logging.getLogger('Adafruit_I2C')
     clock_logger.setLevel(logging.WARNING)
-    sched_logger = logging.getLogger('apscheduler.scheduler')
+    sched_logger = logging.getLogger('apscheduler')
     sched_logger.setLevel(logging.WARNING)
-    exec_logger = logging.getLogger('apscheduler.executors.default')
-    exec_logger.setLevel(logging.WARNING)
 
 
 def _configure_default_alarm(env):
-    from clock import sched
-    sched.add_pi_oclock_alarm()
+    if env != 'test':
+        from clock import sched
+        sched.add_pi_oclock_alarm()
 
 
-def _configure_clock_tick(env):
-    from clock import sched
-    sched.add_clock_tick()
+def _configure_clock_display(env):
+    if env != 'test':
+        try:
+            from Adafruit_LED_Backpack import SevenSegment
+
+            global display
+            display = SevenSegment.SevenSegment()
+            display.begin()
+
+            from clock import sched
+            sched.add_clock_tick()
+        except ImportError:
+            logger.warn("Could not import Adafruit_LED_Backpack. View the "
+                        "README.md for installation instructions. If an LED "
+                        "isn't attachedor ignore this message.")
 
 
 def create_app(env):
@@ -66,7 +78,7 @@ def create_app(env):
 
     _configure_scheduler(app.config['SQLALCHEMY_DATABASE_URI'])
     _configure_default_alarm(env)
-    _configure_clock_tick(env)
+    _configure_clock_display(env)
 
     bootstrap.init_app(app)
     moment.init_app(app)
