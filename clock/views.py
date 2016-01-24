@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template, request, redirect, flash, url_for
+from flask import Blueprint, render_template, request, redirect, flash, \
+    url_for, current_app, send_file
 
 from clock import action
 from clock.sched import Alarm
@@ -75,3 +76,8 @@ def say():
         return redirect(url_for('.say'))
 
     return render_template('say/say.html')
+
+
+@views.route('/log')
+def log():
+    return send_file(current_app.config['LOG_FILE'])
