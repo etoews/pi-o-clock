@@ -80,4 +80,4 @@ def say():
 
 @views.route('/log')
 def log():
-    return send_file(current_app.config['LOG_FILE'])
+    return send_file(current_app.config['LOG_FILE'], mimetype='text/plain')
