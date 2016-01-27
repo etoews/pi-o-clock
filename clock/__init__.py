@@ -23,6 +23,10 @@ def _configure_scheduler(url):
     bg.start()
 
 
+def _uncaught_exception_handler(type, value, traceback):
+    logger.error("Uncaught exception", exc_info=(type, value, traceback))
+
+
 def _configure_logging(log_file):
     root_logger = logging.getLogger()
     root_logger.setLevel(logging.DEBUG)
@@ -42,7 +46,7 @@ def _configure_logging(log_file):
     sched_logger = logging.getLogger('apscheduler')
     sched_logger.setLevel(logging.WARNING)
 
-    # TODO: log uncaught exceptions http://stackoverflow.com/questions/6234405/logging-uncaught-exceptions-in-python
+    sys.excepthook = _uncaught_exception_handler
 
 
 # TODO: configure voicerss api key
