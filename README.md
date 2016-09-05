@@ -13,10 +13,10 @@ Development is ongoing.
 * [x] LED clock display
 * [x] Alarms
 * [x] Play songs
+* [x] Say something random
 * [ ] Tell the weather
 * [ ] Tell a joke
 * [ ] Words of wisdom
-* [ ] Say something random
 * [ ] Pester your children
 
 ## Install
@@ -31,6 +31,7 @@ sudo apt-get -y update; sudo apt-get -y upgrade
 sudo apt-get -y install build-essential python-dev python-pip mpg123 supervisor
 sudo dpkg-reconfigure tzdata
 
+# Install i2c for the LED backpack
 sudo apt-get -y install i2c-tools libffi-dev
 sudo sh -c 'echo "i2c-dev\ni2c-bcm2708" >> /etc/modules'
 sudo sh -c 'echo "dtparam=i2c1=on\ndtparam=i2c_arm=on" >> /boot/config.txt'
@@ -48,7 +49,13 @@ sudo python /home/pi/Adafruit_Python_LED_Backpack/setup.py install
 sudo reboot
 ```
 
-TODO: instructions for voicerss 
+## Configure Say
+
+Setup an account on [VoiceRSS](http://www.voicerss.org/) and get an API key.
+
+```
+sudo sh -c 'echo "export VOICERSS_API_KEY=my_voicerss_api_key" >> /root/.profile'
+```
 
 ## Run
 
