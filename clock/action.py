@@ -27,7 +27,9 @@ def clock_tick():
 
 
 def play_songs(num=3):
+    num = int(num)
     songs = []
+
     for root, _, filenames in os.walk('audio/songs'):
         for filename in fnmatch.filter(filenames, '*.mp3'):
             songs.append(os.path.abspath(os.path.join(root, filename)))
@@ -36,13 +38,14 @@ def play_songs(num=3):
         logger.warn("No songs in %s", os.path.abspath('audio/songs'))
         return
 
-    n = num if num < len(songs) else len(songs)
-    for _ in xrange(n):
+    if num > len(songs):
+        num = len(songs)
+
+    for _ in xrange(num):
         song = random.choice(songs)
         songs.remove(song)
 
         logger.debug("Playing %s", song)
-
         subprocess.call(["mpg123", "-q", song])
 
 

@@ -24,7 +24,7 @@ class TestAction(unittest.TestCase):
             ('/audio/songs', (), ('1.mp3', '2.mp3', '3.mp3', '4.mp3'))]
         mock_call.return_value = 0
 
-        action.play_songs(num=2)
+        action.play_songs(num=u'2')
         self.assertEqual(2, mock_call.call_count)
 
     @mock.patch('os.walk')
@@ -34,5 +34,5 @@ class TestAction(unittest.TestCase):
             ('/audio/songs', (), ('1.mp3', '2.mp3', '3.mp3', '4.mp3'))]
         mock_call.return_value = 0
 
-        action.play_songs(num=5)
+        action.play_songs(num=u'5')
         self.assertEqual(4, mock_call.call_count)
