@@ -94,7 +94,13 @@ def configure_clock_display():
         __display.begin()
 
         return True
+    except IOError:
+        logger.exception("Configuring the clock display failed."
+                         "Continuing on anyway.")
+        return True
     except ImportError:
+        # The Adafruit_LED_Backpack package wasn't install so assume a clock
+        # display isn't connected
         return False
 
 
