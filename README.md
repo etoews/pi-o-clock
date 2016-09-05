@@ -120,3 +120,21 @@ from clock.sched import Alarm
 sched.play_alarm(Alarm('pi-oclock'))
 sched.remove_alarm(Alarm('clock-tick'))
 ```
+
+## Connecting the 7-Segment LED Display
+
+_I picked up these instructions from the [Hack Clock](http://hackclock.deckerego.net/lessons/01_display.html) project._
+
+To wire up the LED display to the Raspberry Pi you need to grab a five jumper wires of varying colors. The actual color doesn't matter at all... however sometimes it is helpful to stick with a color scheme that other engineers often use. By using the same colors each time, you can more easily determine what each wire is supposed to do.
+
+![Wiring Diagram for LED Display](img/display_wiring.png)
+
+To wire up the Adafruit 7-Segment LED backpack to a Raspberry Pi:
+
+1. Wire the VIO (I/O power) pin on the display to Pin #1 (3.3V power) on the Raspberry Pi using a grey jumper cable
+1. Connect the SDA (I2C Data) pin on the display to Pin #3 (SDA) on the Raspberry Pi using a red cable
+1. Connect the SCL (I2C Clock) pin on the display to Pin #5 (SCL) on the Raspberry Pi with a blue cable
+1. Wire the GND (Ground) pin on the display to Pin #7 (Ground) on the Raspberry Pi using a black jumper cable
+1. Connect the VDC (LED power) pin on the display to Pin #2 (5V power) on the Raspberry Pi with a white jumper cable
+
+Once the display is wired up, double-check your connections and power on your Raspberry Pi.
