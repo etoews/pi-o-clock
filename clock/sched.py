@@ -65,8 +65,8 @@ def add_pi_oclock_alarm():
     alarm = get_alarm(Alarm('pi-oclock'))
 
     if alarm is None:
-        alarm = Alarm(name="Pi O'Clock", days='mon-sun', hour=15, minute=14,
-                      action='say', param="It's Pi O'Clock!")
+        alarm = Alarm(name=u"Pi O'Clock", days=u'mon-sun', hour=15, minute=14,
+                      action='say', param=u"It's Pi O'Clock!")
         alarm = add_alarm(alarm)
 
     play_alarm(alarm)
