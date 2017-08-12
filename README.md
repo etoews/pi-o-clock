@@ -2,7 +2,7 @@
 
 An alarm clock for the Raspberry Pi.
 
-![Pi O'Clock](clock/static/pi-o-clock.png)
+![Pi O'Clock](img/clock.jpg)
 
 Deployed on a Raspberry Pi Model B 2011.12 running Raspbian 2015-05-05
 
